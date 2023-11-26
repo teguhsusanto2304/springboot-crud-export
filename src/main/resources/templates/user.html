@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" rel="stylesheet">
+
+    <title>User</title>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">CRUD</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/user/}">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <div class="mt-2">Username: <span sec:authentication="principal.username"/></div>
+                </li>
+                <li class="nav-item">
+                    <div class="mt-2"> <span sec:authentication="principal.authorities"/></div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div class="row mt-12">
+        <div class="col-12 mx-auto">
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <h1>Selamat datang <span sec:authentication="principal.username"/></h1>
+            </div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <h1>Manajemen User</h1>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a th:href="@{/user/add}" class="btn btn-success">Tambah User</a>
+                    <a th:href="@{/user/pdf}" class="btn btn-warning">Export PDF</a>
+                    <a th:href="@{/user/xls}" class="btn btn-info">Export Excel</a>
+                    <a th:href="@{/user/json}" class="btn btn-danger">JSON</a>
+                </div>
+                <div class="col-md-12">
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Handphone</th>
+                            <th>Gender</th>
+                            <th>No KTP</th>
+                            <th>Tgl Lahir</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.phone_number}"></td>
+                            <td th:text="${user.gender}"></td>
+                            <td th:text="${user.ic_number}"></td>
+                            <td th:text="${user.dob}"></td>
+                            <td><a th:href="@{/user/edit/{id}(id=${user.id})}" class="btn btn-info">Edit</a></td>
+                            <td><a th:href="@{/user/delete/{id}(id=${user.id})}" class="btn btn-danger">Hapus</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script crossorigin="anonymous"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
