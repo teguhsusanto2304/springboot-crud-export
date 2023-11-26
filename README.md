@@ -28,7 +28,14 @@
 #### Payload List of User
 <img width="576" alt="json" src="https://github.com/teguhsusanto2304/springboot-crud-export/assets/5345651/21c2114e-a9fe-4dc1-bb48-e92eb53157d0">
 
-
+#### Install
+##### 1. clone the springboot-crud-export project 
+##### 2. create a database schema on PostgreeSQL
+##### 3. opne project using IDE To0l likes Itelisj IDEA, Microsoft Code, Eclipse etc
+##### 4. seting database connecting at application.yml
+##### 5. import dump sql on folder DB
+##### 6. run the project
+##### 7. try to sign in using email : teguh.susanto@hotmail.com and password 123456
 
 
 
